@@ -1,5 +1,6 @@
 package ru.geekbrains.sprite.menu;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
@@ -28,11 +29,16 @@ public class StopBtn extends ScaledTouchUpButton {
     @Override
     public void resize(Rect worldBounds) {
         this.worldBounds = worldBounds;
+        setTop(worldBounds.getTop()-0.05f);
+        setLeft(worldBounds.getLeft()+0.05f);
     }
 
     @Override
     public void action() {
+    //    Gdx.audio();
+        Gdx.app.exit();
     }
+
 
     @Override
     public boolean touchDown(Vector2 touch, int pointer) {
