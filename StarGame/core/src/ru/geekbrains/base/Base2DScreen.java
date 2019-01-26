@@ -11,11 +11,14 @@ import com.badlogic.gdx.math.Vector2;
 import ru.geekbrains.math.MatrixUtils;
 import ru.geekbrains.math.Rect;
 
-public class Base2DScreen implements Screen, InputProcessor {
+public abstract class Base2DScreen implements Screen, InputProcessor {
+
     protected SpriteBatch batch;
-    private Rect screenBounds; // задаем границы  области рисования в пикселях
-    private Rect worldBounds; // задаем границы  области мировых координат
-    private Rect glBounds; // задаем дефолтные границы  проекции мир-gl
+
+    private Rect screenBounds; // границы области рисования в пикселях
+    private Rect worldBounds; // границы проекции мировых координат
+    private Rect glBounds; // дефолтные границы проекции мир - gl
+
     private Matrix4 worldToGl;
     private Matrix3 screenToWorlds;
 
@@ -40,8 +43,8 @@ public class Base2DScreen implements Screen, InputProcessor {
     }
 
     @Override
-    public void resize(int width, int height){
-        System.out.println("resize w= "+width +"h= "+ height);
+    public void resize(int width, int height) {
+        System.out.println("resize w = " + width + " h = " + height);
         screenBounds.setSize(width, height);
         screenBounds.setLeft(0);
         screenBounds.setBottom(0);
@@ -53,6 +56,11 @@ public class Base2DScreen implements Screen, InputProcessor {
         MatrixUtils.calcTransitionMatrix(worldToGl, worldBounds, glBounds);
         batch.setProjectionMatrix(worldToGl);
         MatrixUtils.calcTransitionMatrix(screenToWorlds, screenBounds, worldBounds);
+        resize(worldBounds);
+    }
+
+    public void resize(Rect worldBounds) {
+
     }
 
     @Override
@@ -60,40 +68,42 @@ public class Base2DScreen implements Screen, InputProcessor {
         System.out.println("pause");
     }
 
-
     @Override
-    public void resume(){
-        System.out.println("resume ");
+    public void resume() {
+        System.out.println("resume");
     }
 
     @Override
-    public void hide(){
-        System.out.println("hide ");
+    public void hide() {
+        System.out.println("hide");
         dispose();
     }
 
     @Override
-    public void dispose(){
-        System.out.println("dispose ");
+    public void dispose() {
+        System.out.println("dispose");
+        batch.dispose();
+    }
 
+
+    @Override
+    public boolean keyDown(int keycode) {
+        System.out.println("keyDown keycode = " + keycode);
+        return false;
     }
 
     @Override
-    public boolean keyDown(int keycode){
-        System.out.println("keyDown keycode= "+keycode);
+    public boolean keyUp(int keycode) {
+        System.out.println("keyUp keycode = " + keycode);
         return false;
+    }
 
-    }
     @Override
-    public boolean keyUp(int keycode){
-        System.out.println("keyUp keycode= "+keycode);
+    public boolean keyTyped(char character) {
+        System.out.println("keyTyped character = " + character);
         return false;
     }
-    @Override
-    public boolean keyTyped(char character){
-        System.out.println("keyType keycode= "+character);
-        return false;
-    }
+
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         System.out.println("touchDown screenX = " + screenX + " screenY = " + screenY);
@@ -101,7 +111,6 @@ public class Base2DScreen implements Screen, InputProcessor {
         touchDown(touch, pointer);
         return false;
     }
-
 
     public boolean touchDown(Vector2 touch, int pointer) {
         System.out.println("touchDown touch.x = " + touch.x + " touch.y = " + touch.y);
@@ -133,6 +142,7 @@ public class Base2DScreen implements Screen, InputProcessor {
         System.out.println("touchDragged touch.x = " + touch.x + " touch.y = " + touch.y);
         return false;
     }
+
     @Override
     public boolean mouseMoved(int screenX, int screenY) {
         return false;

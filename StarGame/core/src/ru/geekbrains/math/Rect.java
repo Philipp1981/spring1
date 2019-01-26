@@ -1,6 +1,5 @@
 package ru.geekbrains.math;
 
-
 import com.badlogic.gdx.math.Vector2;
 
 /**
