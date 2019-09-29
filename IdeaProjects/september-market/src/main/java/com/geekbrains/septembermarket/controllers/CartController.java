@@ -40,6 +40,7 @@ public class CartController {
     @GetMapping("")
     public String show(Model model, HttpSession httpSession) {
         model.addAttribute("cartProductHashMap", cart.getCartProductHashMap().values());
+        model.addAttribute("overallPrice", cart.overallPrice(cart.getCartProductHashMap()));
         List list =Collections.list(httpSession.getAttributeNames());
         for (int i=0; i<list.size(); i++){
             System.out.println(httpSession.getAttribute("scopedTarget.cart"));
@@ -47,7 +48,6 @@ public class CartController {
            for(Field f: httpSession.getAttribute("scopedTarget.cart").getClass().getDeclaredFields()){
                System.out.println(f.getName());
            }
-        int sum=cart.overallPrice(cart.getCartProductHashMap());
         return "cart";
     }
 
@@ -55,7 +55,6 @@ public class CartController {
     public void addProductToCart(@RequestParam("id") Long id, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Product product = productsService.findById(id);
         cart.addProduct(product);
- //       cart.overallPrice(cart.getCartProductHashMap());
         response.sendRedirect(request.getHeader("referer"));
     }
 
@@ -64,17 +63,9 @@ public class CartController {
     public void deleteProductFromCart(@RequestParam("id") Long id, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Product product = productsService.findById(id);
         cart.deleteProduct(product);
-//        cart.overallPrice(cart.getCartProductHashMap());
         response.sendRedirect(request.getHeader("referer"));
 
     }
-
-//    @GetMapping("/delete/{id}")
-//    public String deleteProductFromCart(@ModelAttribute(name = "product") Product product, @RequestParam("id") Long id) {
-//        product = productsService.findById(id);
-//        cart.deleteProduct(id);
-//        return "redirect:/cart";
-//    }
 
     @GetMapping("/login")
     public String showLoginPage() {

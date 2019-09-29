@@ -67,20 +67,17 @@
             </tr>
             </tbody>
          </table>
-        <!--<tr>-->
-           <!--<span>Итого:</span>-->
-        <!--</tr>-->
         <tr>
           <td>
             <span>Итого:</span>
           </td>
           <td>
-            <span th:text="${sum}"></span>
+            <span th:text="${overallPrice}"></span>
           </td>
         </tr>
          <br>
-        <a th:if="${cartProductHashMap.size() > 0}" sec:authorize="isAuthenticated()" th:href="@{/cart/buy/}" class="btn btn-warning">Оформить заказ</a>
-        <span th:if="${cartProductHashMap.size() > 0}" sec:authorize="isAnonymous()">Для оформления заказа необходимо зайти в учетную запись</span>
+             <a th:if="${cartProductHashMap.size() > 0}" sec:authorize="isAuthenticated()" th:href="@{/cart/buy/}" class="btn btn-warning">Оформить заказ</a>
+             <span th:if="${cartProductHashMap.size() > 0}" sec:authorize="isAnonymous()">Для оформления заказа необходимо зайти в учетную запись</span>
          </br>
 </div>
 

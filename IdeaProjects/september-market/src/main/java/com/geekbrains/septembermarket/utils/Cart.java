@@ -53,7 +53,8 @@ public class Cart {
     }
 
     public void deleteProduct(Product product) {
-        CartProduct cartProduct=new CartProduct(product.getId(), product.getTitle(), product.getPrice(), 1);
+//        CartProduct cartProduct=new CartProduct(product.getId(), product.getTitle(), product.getPrice(), 1);
+        CartProduct cartProduct = cartProductHashMap.get(product);
         if(cartProduct.getCount()<=1) {
             cartProductHashMap.remove(product, cartProduct);
         }
@@ -64,10 +65,10 @@ public class Cart {
     }
 
     public int overallPrice(HashMap<Product, CartProduct> cartProductHashMap){
-        int price=0;
+       totalPrice=0;
         for (Map.Entry<Product, CartProduct> map : cartProductHashMap.entrySet()) {
-            price += map.getValue().getPrice() * map.getValue().getCount();
+            totalPrice += map.getValue().getPrice() * map.getValue().getCount();
         }
-            return price;
+            return totalPrice;
     }
 }
