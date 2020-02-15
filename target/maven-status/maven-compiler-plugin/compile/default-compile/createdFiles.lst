@@ -1,0 +1,12 @@
+com\geekbrains\controllers\StudentsController.class
+com\geekbrains\controllers\MainController.class
+com\geekbrains\controllers\ProductsController.class
+com\geekbrains\services\StudentService.class
+com\geekbrains\controllers\FormsController.class
+com\geekbrains\entities\Product.class
+com\geekbrains\launcher\Launcher.class
+com\geekbrains\repositories\ProductRepository.class
+com\geekbrains\controllers\WelcomeController.class
+com\geekbrains\entities\Student.class
+com\geekbrains\services\ProductService.class
+com\geekbrains\repositories\StudentsRepository.class
